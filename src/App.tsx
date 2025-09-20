@@ -18,6 +18,9 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { AdminDashboardEnhanced } from './components/AdminDashboardEnhanced';
 import { SettingsManager } from './components/SettingsManager';
 import { RealTimeMonitoring } from './components/RealTimeMonitoring';
+import { InventoryManagement } from './components/InventoryManagement';
+import { DriverManagement } from './components/DriverManagement';
+import { ReportingSystem } from './components/ReportingSystem';
 import { AdminNavigation } from './components/AdminNavigation';
 import { SEOHead, defaultStructuredData } from './components/SEOHead';
 import { PWAInstaller, PWAUpdateNotifier } from './components/PWAInstaller';
@@ -73,9 +76,12 @@ export default function App() {
           />
           <div className="flex-1 lg:ml-64">
             {activeSection === 'admin' && <AdminDashboardEnhanced />}
-            {activeSection === 'settings' && <SettingsManager />}
-            {activeSection === 'monitoring' && <RealTimeMonitoring />}
             {activeSection === 'dashboard' && <AdminDashboardEnhanced />}
+            {activeSection === 'monitoring' && <RealTimeMonitoring />}
+            {activeSection === 'inventory' && <InventoryManagement />}
+            {activeSection === 'drivers' && <DriverManagement />}
+            {activeSection === 'reports' && <ReportingSystem />}
+            {activeSection === 'settings' && <SettingsManager />}
           </div>
         </div>
         <Toaster />

@@ -8,7 +8,9 @@ import {
   Menu, 
   X,
   User,
-  LogOut
+  LogOut,
+  Package,
+  Users
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -26,6 +28,9 @@ export function AdminNavigation({ activeSection, setActiveSection, user, onSignO
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'monitoring', label: 'Monitoring', icon: Activity },
+    { id: 'inventory', label: 'Inventory', icon: Package },
+    { id: 'drivers', label: 'Drivers', icon: Users },
+    { id: 'reports', label: 'Reports', icon: BarChart3 },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
