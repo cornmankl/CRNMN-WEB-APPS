@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { forwardRef, ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface AnimatedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

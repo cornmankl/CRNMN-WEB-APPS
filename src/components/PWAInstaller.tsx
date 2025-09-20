@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Download, X, Smartphone, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -22,14 +22,14 @@ export function PWAInstaller() {
 
     // Check if already installed (standalone mode)
     const standalone = window.matchMedia('(display-mode: standalone)').matches ||
-                     (window.navigator as any).standalone === true;
+      (window.navigator as any).standalone === true;
     setIsStandalone(standalone);
 
     // Listen for beforeinstallprompt event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      
+
       // Show install prompt after a delay if not already dismissed
       const dismissed = localStorage.getItem('pwa-install-dismissed');
       if (!dismissed && !standalone) {
@@ -56,13 +56,13 @@ export function PWAInstaller() {
 
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    
+
     if (outcome === 'accepted') {
       console.log('PWA installation accepted');
     } else {
       console.log('PWA installation dismissed');
     }
-    
+
     setDeferredPrompt(null);
     setShowInstallPrompt(false);
   };
@@ -70,7 +70,7 @@ export function PWAInstaller() {
   const handleDismiss = () => {
     setShowInstallPrompt(false);
     localStorage.setItem('pwa-install-dismissed', 'true');
-    
+
     // Show again after 7 days
     setTimeout(() => {
       localStorage.removeItem('pwa-install-dismissed');
@@ -94,7 +94,7 @@ export function PWAInstaller() {
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
             onClick={handleDismiss}
           />
-          
+
           {/* Install prompt */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -107,7 +107,7 @@ export function PWAInstaller() {
                 <div className="w-12 h-12 bg-[var(--neon-green)]/10 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Smartphone className="w-6 h-6 text-[var(--neon-green)]" />
                 </div>
-                
+
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-white mb-1">
                     Install THEFMSMKT App
@@ -115,7 +115,7 @@ export function PWAInstaller() {
                   <p className="text-sm text-[var(--neutral-400)] mb-4">
                     Get faster access, offline ordering, and exclusive app-only deals!
                   </p>
-                  
+
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex items-center gap-1 text-xs text-[var(--neutral-500)]">
                       <Zap className="w-3 h-3" />
@@ -130,10 +130,10 @@ export function PWAInstaller() {
                   {isIOS ? (
                     <div className="space-y-3">
                       <p className="text-xs text-[var(--neutral-400)]">
-                        To install: Tap <span className="font-semibold">Share</span> → 
+                        To install: Tap <span className="font-semibold">Share</span> →
                         <span className="font-semibold"> Add to Home Screen</span>
                       </p>
-                      <Button 
+                      <Button
                         onClick={handleDismiss}
                         className="w-full bg-[var(--neon-green)] text-black hover:bg-[var(--neon-green)]/90"
                       >

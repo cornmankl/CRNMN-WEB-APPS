@@ -23,6 +23,8 @@ import { PaymentGateway } from './components/PaymentGateway';
 import { PushNotificationManager } from './components/PushNotificationManager';
 import { CorporateCatering } from './components/CorporateCatering';
 import { useAuth } from './hooks/useAuth';
+import { useResponsive } from './hooks/useResponsive';
+import { UltimateMobileApp } from './components/UltimateMobileApp';
 import { Toaster } from './components/ui/sonner';
 
 export default function App() {
@@ -40,8 +42,19 @@ export default function App() {
     { id: 2, name: 'Chocolate Corn Delight', price: 'RM 9.50', category: 'dessert', date: '2024-01-10' },
     { id: 3, name: 'Susu Pekat Classic', price: 'RM 8.50', category: 'traditional', date: '2024-01-08' }
   ]);
-  
+
   const { user, loading, setUser, signOut } = useAuth();
+  const { isMobile, isTablet } = useResponsive();
+
+  // Use Ultimate Mobile App for mobile devices
+  if (isMobile || isTablet) {
+    return (
+      <TranslationProvider>
+        <UltimateMobileApp />
+        <Toaster />
+      </TranslationProvider>
+    );
+  }
 
   // Register service worker for PWA
   useEffect(() => {
@@ -119,11 +132,11 @@ export default function App() {
             <HeroSection setActiveSection={setActiveSection} addToCart={addToCart} />
             <PromotionalBanner />
             {user && (
-              <RecommendationEngine 
-                user={user} 
-                orderHistory={orderHistory} 
-                currentCart={cartItems} 
-                addToCart={addToCart} 
+              <RecommendationEngine
+                user={user}
+                orderHistory={orderHistory}
+                currentCart={cartItems}
+                addToCart={addToCart}
               />
             )}
             <TestimonialsSection />
@@ -162,7 +175,7 @@ export default function App() {
 
   return (
     <TranslationProvider>
-      <AppContent 
+      <AppContent
         activeSection={activeSection}
         setActiveSection={setActiveSection}
         showCart={showCart}
@@ -198,7 +211,7 @@ export default function App() {
   );
 }
 
-function AppContent({ 
+function AppContent({
   activeSection, setActiveSection, showCart, setShowCart, showAuth, setShowAuth,
   showVoiceOrdering, setShowVoiceOrdering, showPaymentGateway, setShowPaymentGateway,
   cartItems, setCartItems, activeOrder, setActiveOrder, showLiveTracking, setShowLiveTracking,
@@ -215,11 +228,11 @@ function AppContent({
             <HeroSection setActiveSection={setActiveSection} addToCart={addToCart} />
             <PromotionalBanner />
             {user && (
-              <RecommendationEngine 
-                user={user} 
-                orderHistory={orderHistory} 
-                currentCart={cartItems} 
-                addToCart={addToCart} 
+              <RecommendationEngine
+                user={user}
+                orderHistory={orderHistory}
+                currentCart={cartItems}
+                addToCart={addToCart}
               />
             )}
             <TestimonialsSection />
@@ -247,14 +260,14 @@ function AppContent({
 
   return (
     <div className="min-h-screen bg-[var(--brand-black)] text-[var(--brand-white)]">
-      <SEOHead 
+      <SEOHead
         title="THEFMSMKT CMNTYPLX - Premium Gourmet Corn Street Food Delivery Malaysia"
         description="Order premium gourmet corn snacks with 4 irresistible flavors: Chocolate, Cheddar Cheese, Susu Pekat & Caramel. Fast delivery across Klang Valley."
         structuredData={defaultStructuredData}
       />
-      
-      <Header 
-        activeSection={activeSection} 
+
+      <Header
+        activeSection={activeSection}
         setActiveSection={setActiveSection}
         cartCount={cartCount}
         setShowCart={setShowCart}
@@ -264,14 +277,14 @@ function AppContent({
         signOut={signOut}
         setShowVoiceOrdering={setShowVoiceOrdering}
       />
-      
+
       <main>
         {renderSection()}
       </main>
-      
+
       <Footer />
-      
-      <CartSheet 
+
+      <CartSheet
         open={showCart}
         onOpenChange={setShowCart}
         items={cartItems}
@@ -289,14 +302,14 @@ function AppContent({
         }}
       />
 
-      <AuthModal 
+      <AuthModal
         open={showAuth}
         onOpenChange={setShowAuth}
         setUser={setUser}
       />
 
       {showLiveTracking && (
-        <LiveOrderTracking 
+        <LiveOrderTracking
           orderId={trackingOrderId}
           onClose={() => setShowLiveTracking(false)}
         />
@@ -317,7 +330,7 @@ function AppContent({
         onPaymentError={handlePaymentError}
       />
 
-      <Toaster 
+      <Toaster
         position="top-right"
         theme="dark"
         toastOptions={{
@@ -328,7 +341,7 @@ function AppContent({
           },
         }}
       />
-      
+
       <PWAInstaller />
       <PWAUpdateNotifier />
     </div>

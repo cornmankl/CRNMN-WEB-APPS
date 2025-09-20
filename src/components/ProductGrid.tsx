@@ -34,22 +34,22 @@ export function ProductGrid() {
         <div className="mb-6">
           <h2 className="text-xl font-bold text-white">Products</h2>
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="mobile-grid-1">
           {products.map((product) => (
-            <div 
+            <div
               key={product.id}
               className="group cursor-pointer"
             >
               <div className="aspect-square rounded-lg overflow-hidden mb-4 bg-gray-800">
-                <div 
+                <div
                   className="w-full h-full bg-cover bg-center transition-transform group-hover:scale-110"
                   style={{ backgroundImage: `url('${product.image}')` }}
                   role="img"
                   aria-label={product.name}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <h3 className="font-semibold text-white group-hover:text-green-300 transition-colors">
                   {product.name}
@@ -57,8 +57,8 @@ export function ProductGrid() {
                 <p className="text-green-300 text-sm">{product.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-white font-semibold">{product.price}</span>
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     className="bg-green-400 hover:bg-green-300 text-black opacity-0 group-hover:opacity-100 transition-all"
                   >
                     Add to Cart

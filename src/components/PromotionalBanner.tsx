@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Clock, Zap, Gift, Percent } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';

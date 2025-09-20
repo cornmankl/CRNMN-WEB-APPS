@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Mic, Building2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mic, Building2, Menu, X, ShoppingCart, User } from 'lucide-react';
 import { AnimatedButton } from './AnimatedButton';
 import { AuthDebugPanel } from './AuthDebugPanel';
 import { LanguageSelector, useTranslation } from './LanguageSelector';
 import { PushNotificationManager } from './PushNotificationManager';
+import { useResponsive } from '../hooks/useResponsive';
 
 interface HeaderProps {
   activeSection: string;
@@ -18,12 +19,12 @@ interface HeaderProps {
   setShowVoiceOrdering: (show: boolean) => void;
 }
 
-export function Header({ 
-  activeSection, 
-  setActiveSection, 
-  cartCount, 
-  setShowCart, 
-  user, 
+export function Header({
+  activeSection,
+  setActiveSection,
+  cartCount,
+  setShowCart,
+  user,
   setShowAuth,
   activeOrder,
   signOut,
@@ -32,13 +33,14 @@ export function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
   const { t, language, setLanguage } = useTranslation();
-  
+  const { isMobile, isTablet } = useResponsive();
+
   // Show debug panel in development or when ?debug=true
-  const isDevelopment = window.location.hostname === 'localhost' || 
-                       window.location.search.includes('debug=true');
+  const isDevelopment = window.location.hostname === 'localhost' ||
+    window.location.search.includes('debug=true');
 
   return (
-    <motion.header 
+    <motion.header
       className="sticky top-0 z-40 backdrop-blur bg-black/90 border-b border-[var(--neutral-800)]"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -46,13 +48,13 @@ export function Header({
     >
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <motion.button 
-          className="flex items-center gap-3" 
+        <motion.button
+          className="flex items-center gap-3"
           onClick={() => setActiveSection('home')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <motion.div 
+          <motion.div
             className="h-10 w-10 rounded-full neon-bg"
             animate={{
               boxShadow: [
@@ -65,7 +67,7 @@ export function Header({
             transition={{ duration: 3, repeat: Infinity }}
           />
           <div>
-            <motion.p 
+            <motion.p
               className="text-sm tracking-[0.3em] neon-text font-semibold"
               animate={{
                 textShadow: [
@@ -85,43 +87,38 @@ export function Header({
         {/* Main Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
           <button
-            className={`hover:text-[var(--neutral-300)] transition-colors ${
-              activeSection === 'home' ? 'neon-text font-semibold' : ''
-            }`}
+            className={`hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'home' ? 'neon-text font-semibold' : ''
+              }`}
             onClick={() => setActiveSection('home')}
           >
             {t('nav.home')}
           </button>
           <button
-            className={`hover:text-[var(--neutral-300)] transition-colors ${
-              activeSection === 'menu' ? 'neon-text font-semibold' : ''
-            }`}
+            className={`hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'menu' ? 'neon-text font-semibold' : ''
+              }`}
             onClick={() => setActiveSection('menu')}
           >
             {t('nav.menu')}
           </button>
           <button
-            className={`hover:text-[var(--neutral-300)] transition-colors ${
-              activeSection === 'catering' ? 'neon-text font-semibold' : ''
-            }`}
+            className={`hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'catering' ? 'neon-text font-semibold' : ''
+              }`}
             onClick={() => setActiveSection('catering')}
           >
             <Building2 className="w-4 h-4 mr-1 inline" />
             Catering
           </button>
           <button
-            className={`hover:text-[var(--neutral-300)] transition-colors ${
-              activeSection === 'locations' ? 'neon-text font-semibold' : ''
-            }`}
+            className={`hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'locations' ? 'neon-text font-semibold' : ''
+              }`}
             onClick={() => setActiveSection('locations')}
           >
             {t('nav.locations')}
           </button>
           {user && (
             <button
-              className={`hover:text-[var(--neutral-300)] transition-colors flex items-center gap-1 ${
-                activeSection === 'loyalty' ? 'neon-text font-semibold' : ''
-              }`}
+              className={`hover:text-[var(--neutral-300)] transition-colors flex items-center gap-1 ${activeSection === 'loyalty' ? 'neon-text font-semibold' : ''
+                }`}
               onClick={() => setActiveSection('loyalty')}
             >
               <span className="material-icons text-sm">stars</span>
@@ -130,9 +127,8 @@ export function Header({
           )}
           {activeOrder && (
             <button
-              className={`hover:text-[var(--neutral-300)] transition-colors flex items-center gap-1 ${
-                activeSection === 'tracking' ? 'neon-text font-semibold' : ''
-              }`}
+              className={`hover:text-[var(--neutral-300)] transition-colors flex items-center gap-1 ${activeSection === 'tracking' ? 'neon-text font-semibold' : ''
+                }`}
               onClick={() => setActiveSection('tracking')}
             >
               <span className="material-icons text-sm">delivery_dining</span>
@@ -144,7 +140,7 @@ export function Header({
         {/* Right Actions */}
         <div className="flex items-center gap-3">
           {/* Voice Ordering Button */}
-          <motion.button 
+          <motion.button
             className="p-2 rounded-full hover:bg-[var(--neutral-800)] relative transition-colors"
             onClick={() => setShowVoiceOrdering(true)}
             whileHover={{ scale: 1.1 }}
@@ -158,20 +154,20 @@ export function Header({
           {user && <PushNotificationManager user={user} />}
 
           {/* Language Selector */}
-          <LanguageSelector 
+          <LanguageSelector
             currentLanguage={language}
             onLanguageChange={setLanguage}
             className="hidden sm:block"
           />
 
           {/* Cart Button */}
-          <motion.button 
+          <motion.button
             className="p-2 rounded-full hover:bg-[var(--neutral-800)] relative transition-colors"
             onClick={() => setShowCart(true)}
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
-            <motion.span 
+            <motion.span
               className="material-icons"
               animate={cartCount > 0 ? {
                 rotate: [0, 10, -10, 0],
@@ -183,11 +179,11 @@ export function Header({
             </motion.span>
             <AnimatePresence>
               {cartCount > 0 && (
-                <motion.span 
+                <motion.span
                   className="absolute -top-1 -right-1 w-5 h-5 bg-[var(--neon-green)] text-black text-xs rounded-full flex items-center justify-center font-bold"
                   initial={{ scale: 0, rotate: 180 }}
-                  animate={{ 
-                    scale: 1, 
+                  animate={{
+                    scale: 1,
                     rotate: 0,
                     boxShadow: [
                       '0 0 10px rgba(57, 255, 20, 0.5)',
@@ -196,8 +192,8 @@ export function Header({
                     ]
                   }}
                   exit={{ scale: 0, rotate: -180 }}
-                  transition={{ 
-                    type: 'spring', 
+                  transition={{
+                    type: 'spring',
                     stiffness: 200,
                     boxShadow: { duration: 1.5, repeat: Infinity }
                   }}
@@ -213,17 +209,16 @@ export function Header({
             <div className="hidden sm:flex items-center gap-2 relative">
               <div className="flex items-center gap-3">
                 <button
-                  className={`hover:text-[var(--neutral-300)] transition-colors ${
-                    activeSection === 'profile' ? 'neon-text' : ''
-                  }`}
+                  className={`hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'profile' ? 'neon-text' : ''
+                    }`}
                   onClick={() => setActiveSection('profile')}
                 >
                   <div className="h-8 w-8 rounded-full bg-[var(--neutral-700)] flex items-center justify-center font-bold">
                     {user.avatar_url ? (
-                      <img 
-                        src={user.avatar_url} 
-                        alt={user.name} 
-                        className="w-full h-full rounded-full object-cover" 
+                      <img
+                        src={user.avatar_url}
+                        alt={user.name}
+                        className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
                       user.name?.charAt(0) || 'U'
@@ -242,7 +237,7 @@ export function Header({
               </div>
             </div>
           ) : (
-            <AnimatedButton 
+            <AnimatedButton
               variant="neon"
               size="sm"
               glow={true}
@@ -255,7 +250,7 @@ export function Header({
           )}
 
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -269,126 +264,119 @@ export function Header({
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.nav 
+          <motion.nav
             className="md:hidden pb-4 border-t border-[var(--neutral-800)] px-4 bg-black/95"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-          <div className="flex flex-col gap-3 pt-3">
-            <button
-              className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                activeSection === 'home' ? 'neon-text font-semibold' : ''
-              }`}
-              onClick={() => {
-                setActiveSection('home');
-                setIsMenuOpen(false);
-              }}
-            >
-              Home
-            </button>
-            <button
-              className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                activeSection === 'menu' ? 'neon-text font-semibold' : ''
-              }`}
-              onClick={() => {
-                setActiveSection('menu');
-                setIsMenuOpen(false);
-              }}
-            >
-              Menu
-            </button>
-            <button
-              className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                activeSection === 'catering' ? 'neon-text font-semibold' : ''
-              }`}
-              onClick={() => {
-                setActiveSection('catering');
-                setIsMenuOpen(false);
-              }}
-            >
-              <Building2 className="w-4 h-4 mr-1 inline" />
-              Catering
-            </button>
-            <button
-              className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                activeSection === 'locations' ? 'neon-text font-semibold' : ''
-              }`}
-              onClick={() => {
-                setActiveSection('locations');
-                setIsMenuOpen(false);
-              }}
-            >
-              Locations
-            </button>
-            {activeOrder && (
+            <div className="flex flex-col gap-3 pt-3">
               <button
-                className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                  activeSection === 'tracking' ? 'neon-text font-semibold' : ''
-                }`}
+                className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'home' ? 'neon-text font-semibold' : ''
+                  }`}
                 onClick={() => {
-                  setActiveSection('tracking');
+                  setActiveSection('home');
                   setIsMenuOpen(false);
                 }}
               >
-                Track Order
+                Home
               </button>
-            )}
-            {user && (
-              <>
-                <button
-                  className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                    activeSection === 'loyalty' ? 'neon-text font-semibold' : ''
+              <button
+                className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'menu' ? 'neon-text font-semibold' : ''
                   }`}
+                onClick={() => {
+                  setActiveSection('menu');
+                  setIsMenuOpen(false);
+                }}
+              >
+                Menu
+              </button>
+              <button
+                className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'catering' ? 'neon-text font-semibold' : ''
+                  }`}
+                onClick={() => {
+                  setActiveSection('catering');
+                  setIsMenuOpen(false);
+                }}
+              >
+                <Building2 className="w-4 h-4 mr-1 inline" />
+                Catering
+              </button>
+              <button
+                className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'locations' ? 'neon-text font-semibold' : ''
+                  }`}
+                onClick={() => {
+                  setActiveSection('locations');
+                  setIsMenuOpen(false);
+                }}
+              >
+                Locations
+              </button>
+              {activeOrder && (
+                <button
+                  className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'tracking' ? 'neon-text font-semibold' : ''
+                    }`}
                   onClick={() => {
-                    setActiveSection('loyalty');
+                    setActiveSection('tracking');
                     setIsMenuOpen(false);
                   }}
                 >
-                  Rewards
+                  Track Order
                 </button>
-                <button
-                  className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${
-                    activeSection === 'profile' ? 'neon-text font-semibold' : ''
-                  }`}
-                  onClick={() => {
-                    setActiveSection('profile');
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Profile
-                </button>
-                {signOut && (
+              )}
+              {user && (
+                <>
                   <button
-                    className="text-left py-2 text-[var(--neutral-400)] hover:text-white transition-colors"
+                    className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'loyalty' ? 'neon-text font-semibold' : ''
+                      }`}
                     onClick={() => {
-                      signOut();
+                      setActiveSection('loyalty');
                       setIsMenuOpen(false);
                     }}
                   >
-                    Sign Out
+                    Rewards
                   </button>
-                )}
-              </>
-            )}
-            {!user && (
-              <AnimatedButton 
-                variant="neon"
-                size="sm"
-                glow={true}
-                className="w-fit mt-2"
-                onClick={() => {
-                  setShowAuth(true);
-                  setIsMenuOpen(false);
-                }}
-                icon={<span className="material-icons text-sm">login</span>}
-              >
-                Sign In
-              </AnimatedButton>
-            )}
-          </div>
-        </motion.nav>
+                  <button
+                    className={`text-left py-2 hover:text-[var(--neutral-300)] transition-colors ${activeSection === 'profile' ? 'neon-text font-semibold' : ''
+                      }`}
+                    onClick={() => {
+                      setActiveSection('profile');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Profile
+                  </button>
+                  {signOut && (
+                    <button
+                      className="text-left py-2 text-[var(--neutral-400)] hover:text-white transition-colors"
+                      onClick={() => {
+                        signOut();
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  )}
+                </>
+              )}
+              {!user && (
+                <AnimatedButton
+                  variant="neon"
+                  size="sm"
+                  glow={true}
+                  className="w-fit mt-2"
+                  onClick={() => {
+                    setShowAuth(true);
+                    setIsMenuOpen(false);
+                  }}
+                  icon={<span className="material-icons text-sm">login</span>}
+                >
+                  Sign In
+                </AnimatedButton>
+              )}
+            </div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </motion.header>

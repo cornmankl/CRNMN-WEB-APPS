@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AnimatedButton } from './AnimatedButton';
 import originalCrnmnImage from 'figma:asset/e7573302acc3ed30b98153f11b3ac659cedea5ad.png';

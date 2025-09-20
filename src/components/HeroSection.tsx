@@ -1,8 +1,9 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { AnimatedButton } from './AnimatedButton';
 import { FloatingParticles, FloatingCornIcons } from './FloatingParticles';
+import { useResponsive } from '../hooks/useResponsive';
 import originalCrnmnImage from 'figma:asset/e7573302acc3ed30b98153f11b3ac659cedea5ad.png';
 
 interface HeroSectionProps {
@@ -12,6 +13,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const { isMobile, isTablet } = useResponsive();
 
   useEffect(() => {
     setIsVisible(true);
@@ -56,13 +58,13 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
   };
 
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 30,
       scale: 0.9
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -73,12 +75,12 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
   };
 
   const heroTextVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 50,
       rotateX: -15
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       rotateX: 0,
@@ -91,8 +93,8 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
 
   const statsVariants = {
     hidden: { opacity: 0, scale: 0.5 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       transition: {
         duration: 0.5,
@@ -103,7 +105,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="relative"
       variants={containerVariants}
       initial="hidden"
@@ -112,25 +114,25 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
       {/* Hero Banner */}
       <section className="relative bg-gradient-to-br from-black via-neutral-900 to-black min-h-[80vh] flex items-center overflow-hidden">
         {/* Animated Background */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--neon-green)] to-transparent opacity-5"
           animate={{
             x: ['-100%', '100%'],
             transition: { duration: 8, repeat: Infinity, ease: 'linear' }
           }}
         />
-        
+
         {/* Floating Particles */}
         <FloatingParticles count={25} color="rgba(57, 255, 20, 0.05)" />
         <FloatingCornIcons count={6} />
-        
+
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative max-w-7xl mx-auto px-4 py-20 text-center">
-          <motion.div 
+          <motion.div
             className="mb-6"
             variants={itemVariants}
           >
-            <motion.span 
+            <motion.span
               className="text-sm tracking-[0.3em] neon-text font-semibold"
               animate={{
                 textShadow: [
@@ -145,12 +147,12 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
             </motion.span>
             <p className="text-xs text-[var(--neutral-400)] mt-1">CMNTYPLX · CORNMAN</p>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             className="text-4xl md:text-7xl font-black mb-6"
             variants={heroTextVariants}
           >
-            <motion.span 
+            <motion.span
               className="neon-text block"
               animate={{
                 scale: [1, 1.02, 1],
@@ -164,11 +166,11 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
             >
               GOURMET CORN
             </motion.span>
-            <motion.span 
+            <motion.span
               className="text-white block"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: 1, 
+              animate={{
+                opacity: 1,
                 y: 0,
                 transition: { delay: 0.5, duration: 0.8 }
               }}
@@ -176,31 +178,31 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
               DELIVERED FRESH
             </motion.span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-lg md:text-xl text-[var(--neutral-300)] mb-8 max-w-2xl mx-auto"
             variants={itemVariants}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               y: 0,
               transition: { delay: 0.8, duration: 0.6 }
             }}
           >
-            Elevated street food experiences featuring premium corn dishes with exciting new flavors. 
+            Elevated street food experiences featuring premium corn dishes with exciting new flavors.
             From traditional Malaysian Susu Pekat to indulgent Chocolate & Caramel varieties.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 40 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               y: 0,
               transition: { delay: 1.2, duration: 0.6 }
             }}
           >
-            <AnimatedButton 
+            <AnimatedButton
               variant="primary"
               size="lg"
               glow={true}
@@ -210,8 +212,8 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
             >
               Order Now
             </AnimatedButton>
-            
-            <AnimatedButton 
+
+            <AnimatedButton
               variant="neon"
               size="lg"
               glow={true}
@@ -225,20 +227,20 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
       </section>
 
       {/* Quick Stats */}
-      <motion.section 
+      <motion.section
         className="bg-[var(--neutral-900)] py-12 relative overflow-hidden"
         variants={itemVariants}
       >
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-gradient-to-r from-[var(--neon-green)]/5 via-transparent to-[var(--neon-green)]/5"
           animate={{
             x: ['-100%', '100%'],
             transition: { duration: 12, repeat: Infinity, ease: 'linear' }
           }}
         />
-        
+
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
             variants={containerVariants}
           >
@@ -250,14 +252,14 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
               <motion.div
                 key={index}
                 variants={statsVariants}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
                   y: -5,
                   transition: { duration: 0.3 }
                 }}
                 className="group cursor-pointer"
               >
-                <motion.div 
+                <motion.div
                   className="text-4xl font-black neon-text mb-2 relative"
                   animate={{
                     textShadow: [
@@ -269,7 +271,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                   }}
                 >
                   {stat.value}
-                  <motion.span 
+                  <motion.span
                     className="material-icons absolute -top-2 -right-6 text-lg opacity-50 group-hover:opacity-100"
                     animate={{
                       rotate: [0, 10, -10, 0],
@@ -289,15 +291,15 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
       </motion.section>
 
       {/* Featured Items */}
-      <motion.section 
+      <motion.section
         className="max-w-7xl mx-auto px-4 py-16"
         variants={itemVariants}
       >
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           variants={itemVariants}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-5xl font-extrabold neon-text mb-4"
             animate={{
               scale: [1, 1.02, 1],
@@ -314,16 +316,16 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
           <p className="text-[var(--neutral-400)] text-lg">Our most loved corn creations</p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid md:grid-cols-3 gap-8"
           variants={containerVariants}
         >
           {featuredItems.map((item, index) => (
-            <motion.div 
-              key={item.id} 
+            <motion.div
+              key={item.id}
               className="card group relative overflow-hidden"
               variants={itemVariants}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 y: -10,
                 rotateY: 5,
@@ -365,7 +367,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                 ) : (
                   <>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <motion.span 
+                    <motion.span
                       className="material-icons text-6xl text-[var(--neutral-600)]"
                       animate={{
                         rotate: [0, 5, -5, 0],
@@ -377,17 +379,17 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                     </motion.span>
                   </>
                 )}
-                
+
                 {item.badge && (
-                  <motion.span 
+                  <motion.span
                     className="absolute top-4 left-4 text-xs px-3 py-1 rounded-full bg-opacity-90 neon-bg text-black font-semibold z-10"
                     initial={{ scale: 0, rotate: -45 }}
-                    animate={{ 
-                      scale: 1, 
+                    animate={{
+                      scale: 1,
                       rotate: 0,
                       transition: { delay: 0.5 + index * 0.2, type: 'spring', stiffness: 200 }
                     }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.1,
                       boxShadow: '0 0 15px rgba(57, 255, 20, 0.5)'
                     }}
@@ -396,9 +398,9 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                   </motion.span>
                 )}
               </div>
-              
+
               <div className="p-6">
-                <motion.h3 
+                <motion.h3
                   className="font-bold text-xl mb-2"
                   whileHover={{ color: 'var(--neon-green)' }}
                 >
@@ -406,7 +408,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                 </motion.h3>
                 <p className="text-[var(--neutral-400)] text-sm mb-4">{item.description}</p>
                 <div className="flex items-center justify-between">
-                  <motion.span 
+                  <motion.span
                     className="font-bold text-lg neon-text"
                     animate={{
                       textShadow: [
@@ -419,8 +421,8 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                   >
                     {item.price}
                   </motion.span>
-                  
-                  <AnimatedButton 
+
+                  <AnimatedButton
                     variant="primary"
                     size="sm"
                     onClick={() => addToCart(item)}
@@ -435,11 +437,11 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
           ))}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-center mt-12"
           variants={itemVariants}
         >
-          <AnimatedButton 
+          <AnimatedButton
             variant="neon"
             size="lg"
             glow={true}
@@ -461,45 +463,45 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
           <p className="text-[var(--neutral-400)] text-lg">Discover our latest corn creations inspired by Malaysian favorites and international desserts</p>
         </div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-6"
           variants={containerVariants}
         >
           {[
-            { 
-              icon: '🍫', 
-              name: 'Chocolate', 
-              desc: 'Rich Belgian chocolate drizzle', 
+            {
+              icon: '🍫',
+              name: 'Chocolate',
+              desc: 'Rich Belgian chocolate drizzle',
               price: 'RM 9.50',
               image: 'https://images.unsplash.com/photo-1545086421-168708d4f603?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBkcml6emxlJTIwY29ybiUyMGN1cCUyMGdvdXJtZXQlMjBzdHJlZXQlMjBmb29kJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzU2MzM2NTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             },
-            { 
-              icon: '🧀', 
-              name: 'Cheddar Cheese', 
-              desc: 'Aged Australian cheddar', 
+            {
+              icon: '🧀',
+              name: 'Cheddar Cheese',
+              desc: 'Aged Australian cheddar',
               price: 'RM 10.90',
               image: 'https://images.unsplash.com/photo-1651718543197-f567aeaa4fb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVkZGFyJTIwY2hlZXNlJTIwY29ybiUyMGdvdXJtZXQlMjBjdXAlMjBkYXJrJTIwbW9vZHklMjBmb29kJTIwcGhvdG9ncmFwaHl8ZW58MXx8fHwxNzU2MzM2NTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             },
-            { 
-              icon: '🥛', 
-              name: 'Susu Pekat', 
-              desc: 'Traditional condensed milk', 
+            {
+              icon: '🥛',
+              name: 'Susu Pekat',
+              desc: 'Traditional condensed milk',
               price: 'RM 8.50',
               image: 'https://images.unsplash.com/photo-1736605406266-dbb985ef3325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25kZW5zZWQlMjBtaWxrJTIwd2hpdGUlMjBjcmVhbSUyMGNvcm4lMjBzdHJlZXQlMjBmb29kJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzU2MzM2NTUxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             },
-            { 
-              icon: '🍯', 
-              name: 'Caramel', 
-              desc: 'Smooth golden caramel glaze', 
+            {
+              icon: '🍯',
+              name: 'Caramel',
+              desc: 'Smooth golden caramel glaze',
               price: 'RM 9.90',
               image: 'https://images.unsplash.com/photo-1610479615051-a022c076da08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJhbWVsJTIwc2F1Y2UlMjBnb2xkZW4lMjBjb3JuJTIwZ291cm1ldCUyMGRhcmslMjBmb29kJTIwcGhvdG9ncmFwaHl8ZW58MXx8fHwxNzU2MzM2NTU1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
             }
           ].map((flavor, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               className="text-center p-6 rounded-2xl border border-neutral-700 group cursor-pointer relative overflow-hidden h-48"
               variants={itemVariants}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 y: -5,
                 borderColor: 'var(--neon-green)',
@@ -515,7 +517,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
             >
               {/* Dark overlay */}
               <div className="absolute inset-0 bg-black/60 rounded-2xl"></div>
-              
+
               {/* Hover glow */}
               <motion.div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100"
@@ -530,7 +532,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
 
               {/* Content overlay */}
               <div className="relative z-10 h-full flex flex-col justify-center">
-                <motion.div 
+                <motion.div
                   className="text-4xl mb-3"
                   animate={{
                     rotate: [0, 10, -10, 0],
@@ -540,14 +542,14 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                 >
                   {flavor.icon}
                 </motion.div>
-                
+
                 <h3 className="font-bold mb-2 text-white group-hover:text-[var(--neon-green)] transition-colors">
                   {flavor.name}
                 </h3>
                 <p className="text-sm text-neutral-300 group-hover:text-white transition-colors">
                   {flavor.desc}
                 </p>
-                <motion.p 
+                <motion.p
                   className="text-neon-green font-semibold mt-2"
                   animate={{
                     textShadow: [
@@ -565,11 +567,11 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
           ))}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="text-center mt-8"
           variants={itemVariants}
         >
-          <AnimatedButton 
+          <AnimatedButton
             variant="primary"
             size="lg"
             glow={true}
@@ -583,18 +585,18 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
       </section>
 
       {/* How It Works */}
-      <motion.section 
+      <motion.section
         className="bg-[var(--neutral-900)] py-16 relative overflow-hidden"
         variants={itemVariants}
       >
         <FloatingParticles count={15} color="rgba(57, 255, 20, 0.03)" />
-        
+
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             variants={itemVariants}
           >
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-5xl font-extrabold neon-text mb-4"
               animate={{
                 textShadow: [
@@ -610,7 +612,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
             <p className="text-[var(--neutral-400)] text-lg">Fresh corn delivered in 3 simple steps</p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-3 gap-8"
             variants={containerVariants}
           >
@@ -619,11 +621,11 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
               { icon: 'payments', title: 'Easy Payment', desc: 'Secure checkout with multiple payment options', step: '2' },
               { icon: 'delivery_dining', title: 'Fast Delivery', desc: 'Fresh corn delivered to your door in 15 minutes', step: '3' }
             ].map((step, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="text-center relative"
                 variants={itemVariants}
-                whileHover={{ 
+                whileHover={{
                   y: -10,
                   transition: { duration: 0.3 }
                 }}
@@ -632,8 +634,8 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                 <motion.div
                   className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[var(--neon-green)] text-black text-sm font-bold flex items-center justify-center"
                   initial={{ scale: 0, rotate: 180 }}
-                  animate={{ 
-                    scale: 1, 
+                  animate={{
+                    scale: 1,
                     rotate: 0,
                     transition: { delay: 0.5 + index * 0.3, type: 'spring', stiffness: 200 }
                   }}
@@ -641,7 +643,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                   {step.step}
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   className="w-16 h-16 rounded-full neon-bg text-black flex items-center justify-center mx-auto mb-4 relative"
                   animate={{
                     boxShadow: [
@@ -657,7 +659,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                     transition: { duration: 0.3 }
                   }}
                 >
-                  <motion.span 
+                  <motion.span
                     className="material-icons text-2xl"
                     animate={{
                       rotate: [0, 5, -5, 0],
@@ -667,7 +669,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                     {step.icon}
                   </motion.span>
                 </motion.div>
-                
+
                 <h3 className="font-bold text-xl mb-2">{step.title}</h3>
                 <p className="text-[var(--neutral-400)]">{step.desc}</p>
 
@@ -676,7 +678,7 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
                   <motion.div
                     className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-[var(--neon-green)] to-transparent"
                     initial={{ scaleX: 0, originX: 0 }}
-                    animate={{ 
+                    animate={{
                       scaleX: 1,
                       transition: { delay: 1.5 + index * 0.5, duration: 0.8 }
                     }}
