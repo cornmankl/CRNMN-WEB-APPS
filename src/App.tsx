@@ -15,6 +15,10 @@ import { TestimonialsSection } from './components/TestimonialsSection';
 import { PromotionalBanner } from './components/PromotionalBanner';
 import { DeliveryAreaMap } from './components/DeliveryAreaMap';
 import { AdminDashboard } from './components/AdminDashboard';
+import { AdminDashboardEnhanced } from './components/AdminDashboardEnhanced';
+import { SettingsManager } from './components/SettingsManager';
+import { RealTimeMonitoring } from './components/RealTimeMonitoring';
+import { AdminNavigation } from './components/AdminNavigation';
 import { SEOHead, defaultStructuredData } from './components/SEOHead';
 import { PWAInstaller, PWAUpdateNotifier } from './components/PWAInstaller';
 import { VoiceOrdering } from './components/VoiceOrdering';
@@ -51,6 +55,29 @@ export default function App() {
     return (
       <TranslationProvider>
         <UltimateMobileApp />
+        <Toaster />
+      </TranslationProvider>
+    );
+  }
+
+  // Use Enhanced Admin Dashboard for admin users
+  if (user?.is_admin) {
+    return (
+      <TranslationProvider>
+        <div className="min-h-screen bg-gray-900 flex">
+          <AdminNavigation 
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+            user={user}
+            onSignOut={signOut}
+          />
+          <div className="flex-1 lg:ml-64">
+            {activeSection === 'admin' && <AdminDashboardEnhanced />}
+            {activeSection === 'settings' && <SettingsManager />}
+            {activeSection === 'monitoring' && <RealTimeMonitoring />}
+            {activeSection === 'dashboard' && <AdminDashboardEnhanced />}
+          </div>
+        </div>
         <Toaster />
       </TranslationProvider>
     );
