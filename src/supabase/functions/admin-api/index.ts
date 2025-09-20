@@ -4,6 +4,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
 }
 
 serve(async (req) => {
@@ -64,17 +65,31 @@ serve(async (req) => {
         .select('*')
         .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
 
+      const { data: products } = await supabaseClient
+        .from('products')
+        .select('*')
+
       const totalRevenue = orders?.reduce((sum, order) => sum + parseFloat(order.total_amount), 0) || 0
       const totalOrders = orders?.length || 0
       const totalCustomers = users?.length || 0
+      const totalProducts = products?.length || 0
       const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0
+
+      // Calculate growth (mock data for now)
+      const revenueGrowth = 23.5
+      const orderGrowth = 18.2
+      const customerGrowth = 21.3
 
       return new Response(
         JSON.stringify({
           totalRevenue,
           totalOrders,
           totalCustomers,
+          totalProducts,
           averageOrderValue,
+          revenueGrowth,
+          orderGrowth,
+          customerGrowth,
           recentOrders: orders?.slice(0, 10) || []
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -310,6 +325,18 @@ serve(async (req) => {
 
       return new Response(
         JSON.stringify({ analytics }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Health Check
+    if (path === '/admin/health' && method === 'GET') {
+      return new Response(
+        JSON.stringify({ 
+          status: 'healthy', 
+          timestamp: new Date().toISOString(),
+          version: '1.0.0'
+        }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
