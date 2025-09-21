@@ -14,6 +14,7 @@ import { ARProductPreview } from './ARProductPreview';
 import { LiveOrderTracking } from './LiveOrderTracking';
 import { SocialSharing } from './SocialSharing';
 import { UserAnalytics } from './UserAnalytics';
+import { MusicToggle } from './MusicToggle';
 import Iridescence from './Iridescence';
 
 interface Product {
@@ -457,6 +458,9 @@ export function UltimateMobileApp() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Music Player */}
+            <MusicToggle />
         </div>
     );
 }

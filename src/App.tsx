@@ -32,6 +32,7 @@ import { CorporateCatering } from './components/CorporateCatering';
 import { useAuth } from './hooks/useAuth';
 import { useResponsive } from './hooks/useResponsive';
 import { UltimateMobileApp } from './components/UltimateMobileApp';
+import { MusicToggle } from './components/MusicToggle';
 import { Toaster } from './components/ui/sonner';
 
 export default function App() {
@@ -377,6 +378,9 @@ function AppContent({
 
       <PWAInstaller />
       <PWAUpdateNotifier />
+      
+      {/* Music Player */}
+      <MusicToggle />
     </div>
   );
 }
