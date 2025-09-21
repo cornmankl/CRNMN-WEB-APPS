@@ -14,6 +14,7 @@ import { ARProductPreview } from './ARProductPreview';
 import { LiveOrderTracking } from './LiveOrderTracking';
 import { SocialSharing } from './SocialSharing';
 import { UserAnalytics } from './UserAnalytics';
+import Iridescence from './Iridescence';
 
 interface Product {
     id: number;
@@ -330,7 +331,17 @@ export function UltimateMobileApp() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white mobile-safe-area">
+        <div className="min-h-screen bg-black text-white mobile-safe-area relative">
+            {/* Iridescence Background */}
+            <div className="fixed inset-0 opacity-15 pointer-events-none z-0">
+                <Iridescence
+                    color={[0.1, 0.8, 0.2]}
+                    mouseReact={true}
+                    amplitude={0.1}
+                    speed={0.5}
+                />
+            </div>
+            
             {/* Advanced PWA Status Bar */}
             <AdvancedPWA />
 

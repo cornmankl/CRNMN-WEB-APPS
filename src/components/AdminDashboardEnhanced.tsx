@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Iridescence from './Iridescence';
 import {
     BarChart3,
     Users,
@@ -328,8 +329,18 @@ export function AdminDashboardEnhanced() {
     const lowStockProducts = products.filter(product => product.stock <= product.minStock);
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-6">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-gray-900 text-white p-6 relative">
+            {/* Iridescence Background */}
+            <div className="fixed inset-0 opacity-10 pointer-events-none z-0">
+                <Iridescence
+                    color={[0.2, 0.4, 1]}
+                    mouseReact={true}
+                    amplitude={0.08}
+                    speed={0.3}
+                />
+            </div>
+            
+            <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>

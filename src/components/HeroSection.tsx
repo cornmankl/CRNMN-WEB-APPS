@@ -5,6 +5,7 @@ import { AnimatedButton } from './AnimatedButton';
 import { FloatingParticles, FloatingCornIcons } from './FloatingParticles';
 import { useResponsive } from '../hooks/useResponsive';
 import originalCrnmnImage from 'figma:asset/e7573302acc3ed30b98153f11b3ac659cedea5ad.png';
+import Iridescence from './Iridescence';
 
 interface HeroSectionProps {
   setActiveSection: (section: string) => void;
@@ -113,6 +114,16 @@ export function HeroSection({ setActiveSection, addToCart }: HeroSectionProps) {
     >
       {/* Hero Banner */}
       <section className="relative bg-gradient-to-br from-black via-neutral-900 to-black min-h-[80vh] flex items-center overflow-hidden">
+        {/* Iridescence Background */}
+        <div className="absolute inset-0 opacity-30">
+          <Iridescence
+            color={[0.2, 1, 0.3]}
+            mouseReact={true}
+            amplitude={0.2}
+            speed={0.8}
+          />
+        </div>
+
         {/* Animated Background */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--neon-green)] to-transparent opacity-5"
