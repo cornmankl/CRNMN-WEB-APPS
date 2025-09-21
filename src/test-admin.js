@@ -1,7 +1,7 @@
 // CORNMAN Admin Functionality Test Script
 // This script tests all admin features end-to-end
 
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 // Configuration
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'YOUR_SUPABASE_URL';
